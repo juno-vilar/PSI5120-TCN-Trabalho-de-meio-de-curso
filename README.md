@@ -111,9 +111,15 @@ Esta parte do repositorio diz respeito a implantação de um servidor web do tip
 - ``eksctl``
 
 ## Roteiro
-1. Crie o cluster EKS:
+1. Crie o cluster EKS diretamente ou com um manifesto YAML:
 ```
+eksctl create cluster --name cluster-eks --region region-code
 eksctl create cluster -f manifestos-yaml/cluster-eks.yaml
+```
+2. Configure o kubectl para o Cluster EKS criado:
+```
+aws eks update-kubeconfig --name my-ekis-cluster --region us-east-1
+
 ```
 3. Instale e habilite o metrics-server:
 ```
@@ -124,21 +130,22 @@ kubectl -n kube-system rollout status deployment/metrics-server --timeout=5m
 ```
 kubectl apply -f manifestos-yaml/php-apache.yaml
 ```
-6. Crie aplique o HPA:
+5. Crie aplique o HPA:
 ```
-kubectl apply -f manifestos-yam/hpa.yaml
+kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
 ```
-8. Gerar requisições para a atuação do HPA:
+6. Gerar requisições para a atuação do HPA:
 ```
-kubectl run -it --rm load-generator --image=busybox --restart=Never -- /bin/sh -c 'while true; do wget -q -O- http://php-apache.default.svc.cluster.local/; done'
+kubectl run -it --rm load-generator --image=busybox --restart=Never -- /bin/sh -c 'while true; do wget -q -O- http://php-apache; done'
 ```
-9. Para observar o HPA:
+7. Para observar o HPA:
 ```
-kubectl get hpa -n hpa-demo -w
+kubectl get hpa php-apache --watch
 ```
 
 ## Limpeza
 ```
 kubectl delete -f manifestos-yaml/
+kubectl delete deployment.apps/php-apache service/php-apache horizontalpodautoscaler.autoscaling/php-apache
 eksctl delete cluster --name hpa-eks --region us-east-1
 ```
