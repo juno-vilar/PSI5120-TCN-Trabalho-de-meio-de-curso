@@ -1,6 +1,9 @@
 # PSI5120-TCN-Trabalho-de-meio-de-curso
 Trabalho de meio de curso da matéria PSI5120 - Tópicos de Computação em Nuvem de pós graduação oferecida na Escola Politécnica da USP.
 
+Produzido pelos alunos:
+João Vilar de Souza Junior e Marcelo Lima dos Santos
+
 ## Horizontal Pod Autoscaler (HPA) do Kubernetes utilizando o Minikube
 Este documento contém o roteiro para implantanção e experimentação de um servidor web do tipo php-apache que utiliza o autoescalonamento horizontal (Horizontal Pod Autoscaler), ferramenta crucial na automatização da gestão de microsserviços em nuvem. 
 Com base em métricas como porcentagem de uso de CPU, quantidade de uso da memória, entre outras, o HPA consegue alocar horizontalmente as cargas demandadas por serviço, através da criação ou deleção de réplicas dos Pods ativos.
