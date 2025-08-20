@@ -39,6 +39,7 @@ kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never --
 6. Para observar o HPA agindo:
 ```
 kubectl get hpa php-apache --watch
+ou
 kubectl get deployment php-apache
 ```
 7. Para observar o autoscaling (autoscalonamento) em métricas múltiplas ou customizáveis:
