@@ -115,6 +115,7 @@ Esta parte do repositorio diz respeito a implantação de um servidor web do tip
 1. Crie o cluster EKS diretamente ou com um manifesto YAML:
 ```
 eksctl create cluster --name cluster-eks --region region-code
+ou
 eksctl create cluster -f manifestos-yaml/cluster-eks.yaml
 ```
 2. Configure o kubectl para o Cluster EKS criado:
